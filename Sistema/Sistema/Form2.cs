@@ -12,14 +12,27 @@ namespace Sistema
 {
     public partial class Form2 : Form
     {
-        public Form2()
+        public static List<Produto> listaProdutos = new List<Produto>();
+
+        private Usuario usuarioLogado;
+        public Form2(Usuario usuario)
         {
             InitializeComponent();
+            usuarioLogado = usuario;
         }
 
         private void Form2_Load(object sender, EventArgs e)
         {
-
+            if (usuarioLogado.Tipo == "Funcionário")
+            {
+                label1.Text = "Bem vindo Colaborador!";
+                button2.Visible = true;
+            }
+            else // Cliente
+            {
+                label1.Text = "Bem vindo Cliente!";
+                button2.Visible = false;
+            }
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -33,6 +46,20 @@ namespace Sistema
         {
             Form3 form3 = new Form3();
             form3.Show();
+            this.Close();
+        }
+
+        private void button2_Click_1(object sender, EventArgs e)
+        {
+            Form4 form4 = new Form4(usuarioLogado);
+            form4.Show();
+            this.Close();
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            Form5 form5 = new Form5();
+            form5.Show();
             this.Close();
         }
     }

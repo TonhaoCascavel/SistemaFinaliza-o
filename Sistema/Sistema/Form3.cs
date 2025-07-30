@@ -38,7 +38,7 @@ namespace Sistema
 
             if (usuario != null)
             {
-                Form2 form2 = new Form2();
+                Form2 form2 = new Form2(usuario);
                 form2.Show();
                 this.Hide();
             }

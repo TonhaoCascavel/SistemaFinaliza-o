@@ -16,16 +16,18 @@ namespace Sistema
 
         public string Email { get; set; }
         public string Senha { get; set; }
+        public string Tipo { get; set; }
 
-        public Usuario(string email, string senha)
+        public Usuario(string email, string senha, string tipo)
         {
             Email = email;
             Senha = senha;
+            Tipo = tipo;
         }
 
         public override string ToString()
         {
-            return Email;
+            return $"{Email} ({Tipo})";
         }
 
         private void Usuario_Load(object sender, EventArgs e)

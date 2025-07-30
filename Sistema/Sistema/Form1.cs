@@ -38,16 +38,46 @@ namespace Sistema
             string email = textBox1.Text;
             string senha = textBox2.Text;
 
-
             if (!string.IsNullOrWhiteSpace(email) && !string.IsNullOrWhiteSpace(senha))
             {
-                Usuario usuario = new Usuario(email, senha);
-                listaUsuarios.Add(usuario);
-                listBox1.Items.Add(usuario);
+                if (radioButton1.Checked) // Funcionário
+                {
+                    if (email.EndsWith("@ecopolis.com.pr"))
+                    {
+                        Usuario usuario = new Usuario(email, senha, "Funcionário");
+                        listaUsuarios.Add(usuario);
+                        listBox1.Items.Add(usuario);
 
-                Form2 form2 = new Form2();
-                form2.Show();
-                this.Hide();
+                        Form2 form2 = new Form2(usuario);
+                        form2.Show();
+                        this.Hide();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Para Funcionário, o e-mail deve ser do domínio @ecopolis.com.pr.");
+                    }
+                }
+                else if (radioButton2.Checked) // Cliente
+                {
+                    if (email.EndsWith("@gmail.com"))
+                    {
+                        Usuario usuario = new Usuario(email, senha, "Cliente");
+                        listaUsuarios.Add(usuario);
+                        listBox1.Items.Add(usuario);
+
+                        Form2 form2 = new Form2(usuario);
+                        form2.Show();
+                        this.Hide();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Para Cliente, o e-mail deve ser do domínio @gmail.com.");
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Selecione o tipo de usuário: Funcionário ou Cliente.");
+                }
             }
             else
             {
