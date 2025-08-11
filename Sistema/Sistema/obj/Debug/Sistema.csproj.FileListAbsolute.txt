@@ -23,3 +23,17 @@ C:\Users\Aluno\Source\Repos\SistemaFinaliza-o\Sistema\Sistema\obj\Debug\Sistema.
 C:\Users\Aluno\Source\Repos\SistemaFinaliza-o\Sistema\Sistema\obj\Debug\Sistema.exe
 C:\Users\Aluno\Source\Repos\SistemaFinaliza-o\Sistema\Sistema\obj\Debug\Sistema.pdb
 C:\Users\Aluno\Source\Repos\SistemaFinaliza-o\Sistema\Sistema\obj\Debug\Sistema.Form4.resources
+C:\Users\anton\Source\Repos\SistemaFinaliza-o\Sistema\Sistema\bin\Debug\Sistema.exe.config
+C:\Users\anton\Source\Repos\SistemaFinaliza-o\Sistema\Sistema\bin\Debug\Sistema.exe
+C:\Users\anton\Source\Repos\SistemaFinaliza-o\Sistema\Sistema\bin\Debug\Sistema.pdb
+C:\Users\anton\Source\Repos\SistemaFinaliza-o\Sistema\Sistema\obj\Debug\Sistema.csproj.AssemblyReference.cache
+C:\Users\anton\Source\Repos\SistemaFinaliza-o\Sistema\Sistema\obj\Debug\Sistema.exe.config
+C:\Users\anton\Source\Repos\SistemaFinaliza-o\Sistema\Sistema\obj\Debug\Sistema.Form1.resources
+C:\Users\anton\Source\Repos\SistemaFinaliza-o\Sistema\Sistema\obj\Debug\Sistema.Form2.resources
+C:\Users\anton\Source\Repos\SistemaFinaliza-o\Sistema\Sistema\obj\Debug\Sistema.Form3.resources
+C:\Users\anton\Source\Repos\SistemaFinaliza-o\Sistema\Sistema\obj\Debug\Sistema.Form4.resources
+C:\Users\anton\Source\Repos\SistemaFinaliza-o\Sistema\Sistema\obj\Debug\Sistema.Properties.Resources.resources
+C:\Users\anton\Source\Repos\SistemaFinaliza-o\Sistema\Sistema\obj\Debug\Sistema.csproj.GenerateResource.cache
+C:\Users\anton\Source\Repos\SistemaFinaliza-o\Sistema\Sistema\obj\Debug\Sistema.csproj.CoreCompileInputs.cache
+C:\Users\anton\Source\Repos\SistemaFinaliza-o\Sistema\Sistema\obj\Debug\Sistema.exe
+C:\Users\anton\Source\Repos\SistemaFinaliza-o\Sistema\Sistema\obj\Debug\Sistema.pdb
