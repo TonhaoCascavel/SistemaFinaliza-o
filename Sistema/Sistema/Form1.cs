@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.IO;
 
 namespace Sistema
 {
@@ -16,81 +17,8 @@ namespace Sistema
         public Form1()
         {
             InitializeComponent();
-            // Remove a borda padrão
-            this.FormBorderStyle = FormBorderStyle.None;
-
-            // Criar barra personalizada
-            Panel barra = new Panel();
-            barra.BackColor = Color.FromArgb(45, 45, 48); // Cor escura
-            barra.Dock = DockStyle.Top;
-            barra.Height = 35;
-            barra.MouseDown += Barra_MouseDown; // Permitir arrastar a janela
-            this.Controls.Add(barra);
-
-            // Botão fechar
-            Button btnFechar = new Button();
-            btnFechar.Text = "X";
-            btnFechar.ForeColor = Color.White;
-            btnFechar.BackColor = Color.FromArgb(25, 25, 28);
-            btnFechar.FlatStyle = FlatStyle.Flat;
-            btnFechar.FlatAppearance.BorderSize = 0;
-            btnFechar.Size = new Size(45, 35);
-            btnFechar.Location = new Point(this.Width - 45, 0);
-            btnFechar.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            btnFechar.Click += (s, e) => this.Close();
-            barra.Controls.Add(btnFechar);
-
-            // Botão maximizar/restaurar
-            Button btnMax = new Button();
-            btnMax.Text = "⬜";
-            btnMax.ForeColor = Color.White;
-            btnMax.BackColor = Color.FromArgb(25, 25, 28);
-            btnMax.FlatStyle = FlatStyle.Flat;
-            btnMax.FlatAppearance.BorderSize = 0;
-            btnMax.Size = new Size(45, 35);
-            btnMax.Location = new Point(this.Width - 90, 0);
-            btnMax.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            btnMax.Click += (s, e) =>
-            {
-                if (this.WindowState == FormWindowState.Normal)
-                    this.WindowState = FormWindowState.Maximized;
-                else
-                    this.WindowState = FormWindowState.Normal;
-            };
-            barra.Controls.Add(btnMax);
-
-            // Botão minimizar
-            Button btnMin = new Button();
-            btnMin.Text = "_";
-            btnMin.ForeColor = Color.White;
-            btnMin.BackColor = Color.FromArgb(25, 25, 28);
-            btnMin.FlatStyle = FlatStyle.Flat;
-            btnMin.FlatAppearance.BorderSize = 0;
-            btnMin.Size = new Size(45, 35);
-            btnMin.Location = new Point(this.Width - 135, 0);
-            btnMin.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            btnMin.Click += (s, e) => this.WindowState = FormWindowState.Minimized;
-            barra.Controls.Add(btnMin);
+            
         }
-
-        // Permitir arrastar a janela segurando o painel
-        public const int WM_NCLBUTTONDOWN = 0xA1;
-        public const int HT_CAPTION = 0x2;
-        [System.Runtime.InteropServices.DllImport("user32.dll")]
-        public static extern bool ReleaseCapture();
-        [System.Runtime.InteropServices.DllImport("user32.dll")]
-        public static extern int SendMessage(IntPtr hWnd, int Msg, int wParam, int lParam);
-
-        private void Barra_MouseDown(object sender, MouseEventArgs e)
-        {
-            if (e.Button == MouseButtons.Left)
-            {
-                ReleaseCapture();
-                SendMessage(this.Handle, WM_NCLBUTTONDOWN, HT_CAPTION, 0);
-            }
-        }
-    
-        
 
         private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -99,64 +27,85 @@ namespace Sistema
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            listBox1.Items.Clear();
+            listView1.Items.Clear();
+            imageList1.Images.Clear();
 
             foreach (var usuario in listaUsuarios)
             {
-                listBox1.Items.Add(usuario); 
+                string key = Guid.NewGuid().ToString();
+                imageList1.Images.Add(key, usuario.Foto);
+                ListViewItem lvi = new ListViewItem($"{usuario.PrimeiroNome()} - {usuario.Classe}");
+                lvi.ImageKey = key;
+                lvi.Tag = usuario;
+                listView1.Items.Add(lvi);
             }
+
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            string email = textBox1.Text;
+            string email = textBox1.Text.Trim();
             string senha = textBox2.Text;
+            string nomeCompleto = textBox3.Text.Trim(); // nova textbox para nome
 
-            if (!string.IsNullOrWhiteSpace(email) && !string.IsNullOrWhiteSpace(senha))
+            // validações básicas: email/senha/nome/foto
+            if (string.IsNullOrWhiteSpace(email) || string.IsNullOrWhiteSpace(senha))
             {
-                if (radioButton1.Checked) // Funcionário
-                {
-                    if (email.EndsWith("@ecopolis.com.pr"))
-                    {
-                        Usuario usuario = new Usuario(email, senha, "Funcionário");
-                        listaUsuarios.Add(usuario);
-                        listBox1.Items.Add(usuario);
+                MessageBox.Show("Preencha e-mail e senha.");
+                return;
+            }
 
-                        Form2 form2 = new Form2(usuario);
-                        form2.Show();
-                        this.Hide();
-                    }
-                    else
-                    {
-                        MessageBox.Show("Para Funcionário, o e-mail deve ser do domínio @ecopolis.com.pr.");
-                    }
-                }
-                else if (radioButton2.Checked) // Cliente
-                {
-                    if (email.EndsWith("@gmail.com"))
-                    {
-                        Usuario usuario = new Usuario(email, senha, "Cliente");
-                        listaUsuarios.Add(usuario);
-                        listBox1.Items.Add(usuario);
+            if (string.IsNullOrWhiteSpace(nomeCompleto))
+            {
+                MessageBox.Show("Informe o nome completo.");
+                return;
+            }
 
-                        Form2 form2 = new Form2(usuario);
-                        form2.Show();
-                        this.Hide();
-                    }
-                    else
-                    {
-                        MessageBox.Show("Para Cliente, o e-mail deve ser do domínio @gmail.com.");
-                    }
-                }
-                else
+            if (pictureBox2.Image == null)
+            {
+                MessageBox.Show("Selecione uma foto de perfil.");
+                return;
+            }
+
+            // continua com sua lógica de domínio de e-mail...
+            if (radioButton1.Checked) // Funcionário
+            {
+                if (!email.EndsWith("@ecopolis.com.pr"))
                 {
-                    MessageBox.Show("Selecione o tipo de usuário: Funcionário ou Cliente.");
+                    MessageBox.Show("Para Funcionário, o e-mail deve ser do domínio @ecopolis.com.pr.");
+                    return;
+                }
+            }
+            else if (radioButton2.Checked) // Cliente
+            {
+                if (!email.EndsWith("@gmail.com"))
+                {
+                    MessageBox.Show("Para Cliente, o e-mail deve ser do domínio @gmail.com.");
+                    return;
                 }
             }
             else
             {
-                MessageBox.Show("Preencha e-mail e senha.");
+                MessageBox.Show("Selecione o tipo de usuário: Funcionário ou Cliente.");
+                return;
             }
+
+            string classe = radioButton1.Checked ? "Funcionário" : "Cliente";
+
+            // clona a imagem do PictureBox para guardar no objeto
+            Image fotoClone = new Bitmap(pictureBox2.Image);
+
+            Usuario usuario = new Usuario(email, senha, classe, nomeCompleto, fotoClone);
+            listaUsuarios.Add(usuario);
+
+
+
+            // ----- (Opcional/recomendado) se usar ListView com imagem, use o código na seção 4 -----
+
+            // abrir Form2
+            Form2 form2 = new Form2(usuario);
+            form2.Show();
+            this.Hide();
         }
 
 
@@ -209,6 +158,90 @@ namespace Sistema
         }
 
         private void radioButton2_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        public const int WM_NCLBUTTONDOWN = 0xA1;
+        public const int HT_CAPTION = 0x2;
+        [System.Runtime.InteropServices.DllImport("user32.dll")]
+        public static extern bool ReleaseCapture();
+        [System.Runtime.InteropServices.DllImport("user32.dll")]
+        public static extern int SendMessage(IntPtr hWnd, int Msg, int wParam, int lParam);
+
+       private void panel2_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void pictureBox2_Click(object sender, EventArgs e)
+        {
+                    }
+
+        private void pictureBox1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label5_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            this.WindowState = FormWindowState.Minimized;
+
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            if (this.WindowState == FormWindowState.Normal)
+                this.WindowState = FormWindowState.Maximized;
+            else
+                this.WindowState = FormWindowState.Normal;
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            this.Close();
+
+        }
+
+        private void panel2_MouseDown(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Left)
+            {
+                ReleaseCapture();
+                SendMessage(this.Handle, WM_NCLBUTTONDOWN, HT_CAPTION, 0);
+            }
+        }
+
+        private void textBox3_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            using (OpenFileDialog dlg = new OpenFileDialog())
+            {
+                dlg.Filter = "Imagens|*.png;*.jpg;*.jpeg;*.bmp";
+                if (dlg.ShowDialog() == DialogResult.OK)
+                {
+                    // Ler a imagem com FileStream para não deixar o arquivo bloqueado
+                    using (var fs = new FileStream(dlg.FileName, FileMode.Open, FileAccess.Read))
+                    {
+                        Image img = Image.FromStream(fs);
+                        // Clonar para evitar travar o arquivo original
+                        pictureBox2.Image = new Bitmap(img);
+                        pictureBox2.SizeMode = PictureBoxSizeMode.Zoom;
+                    }
+                }
+            }
+        }
+
+        private void backgroundWorker1_DoWork(object sender, DoWorkEventArgs e)
         {
 
         }
