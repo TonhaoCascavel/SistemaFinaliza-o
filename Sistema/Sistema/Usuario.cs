@@ -22,7 +22,7 @@ namespace Sistema
         public Image Foto { get; set; } 
 
 
-        public Usuario(string email, string senha, string tipo)
+        public Usuario(string email, string senha, string tipo, string nomeCompleto, Image foto)
         {
             Email = email;
             Senha = senha;
@@ -39,8 +39,7 @@ namespace Sistema
 
         public override string ToString()
         {
-            return $"{Email} ({Tipo})";
-            return $"{PrimeiroNome()} - {Classe}";
+            return $"{PrimeiroNome()} - {Tipo}";
         }
 
         private void Usuario_Load(object sender, EventArgs e)

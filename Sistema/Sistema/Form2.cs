@@ -23,14 +23,16 @@ namespace Sistema
 
         private void Form2_Load(object sender, EventArgs e)
         {
+            string primeiroNome = usuarioLogado.PrimeiroNome();
+
             if (usuarioLogado.Tipo == "Funcionário")
             {
-                label1.Text = "Bem vindo Colaborador!";
+                label1.Text = $"Bem-vindo {primeiroNome} (Colaborador)!";
                 button2.Visible = true;
             }
             else // Cliente
             {
-                label1.Text = "Bem vindo Cliente!";
+                label1.Text = $"Bem-vindo {primeiroNome} (Cliente)!";
                 button2.Visible = false;
             }
         }
@@ -61,6 +63,40 @@ namespace Sistema
             Form5 form5 = new Form5();
             form5.Show();
             this.Close();
+        }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            this.WindowState = FormWindowState.Minimized;
+        }
+
+        private void button6_Click(object sender, EventArgs e)
+        {
+            if (this.WindowState == FormWindowState.Normal)
+                this.WindowState = FormWindowState.Maximized;
+            else
+                this.WindowState = FormWindowState.Normal;
+        }
+
+        private void button7_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        public const int WM_NCLBUTTONDOWN = 0xA1;
+        public const int HT_CAPTION = 0x2;
+        [System.Runtime.InteropServices.DllImport("user32.dll")]
+        public static extern bool ReleaseCapture();
+        [System.Runtime.InteropServices.DllImport("user32.dll")]
+        public static extern int SendMessage(IntPtr hWnd, int Msg, int wParam, int lParam);
+        private void panel2_MouseDown(object sender, MouseEventArgs e)
+
+        {
+            if (e.Button == MouseButtons.Left)
+            {
+                ReleaseCapture();
+                SendMessage(this.Handle, WM_NCLBUTTONDOWN, HT_CAPTION, 0);
+            }
         }
     }
 }

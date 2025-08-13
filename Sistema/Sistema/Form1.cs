@@ -34,7 +34,7 @@ namespace Sistema
             {
                 string key = Guid.NewGuid().ToString();
                 imageList1.Images.Add(key, usuario.Foto);
-                ListViewItem lvi = new ListViewItem($"{usuario.PrimeiroNome()} - {usuario.Classe}");
+                ListViewItem lvi = new ListViewItem($"{usuario.PrimeiroNome()} - {usuario.Tipo}");
                 lvi.ImageKey = key;
                 lvi.Tag = usuario;
                 listView1.Items.Add(lvi);
@@ -242,6 +242,11 @@ namespace Sistema
         }
 
         private void backgroundWorker1_DoWork(object sender, DoWorkEventArgs e)
+        {
+
+        }
+
+        private void listView1_SelectedIndexChanged(object sender, EventArgs e)
         {
 
         }
