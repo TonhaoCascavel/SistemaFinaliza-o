@@ -71,6 +71,7 @@
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(824, 65);
             this.panel2.TabIndex = 16;
+            this.panel2.MouseDown += new System.Windows.Forms.MouseEventHandler(this.panel2_MouseDown);
             // 
             // button5
             // 
@@ -87,6 +88,7 @@
             this.button5.TabIndex = 17;
             this.button5.Text = "-";
             this.button5.UseVisualStyleBackColor = false;
+            this.button5.Click += new System.EventHandler(this.button5_Click);
             // 
             // button6
             // 
@@ -103,6 +105,7 @@
             this.button6.TabIndex = 16;
             this.button6.Text = "🗖";
             this.button6.UseVisualStyleBackColor = false;
+            this.button6.Click += new System.EventHandler(this.button6_Click);
             // 
             // button7
             // 
@@ -119,6 +122,7 @@
             this.button7.TabIndex = 15;
             this.button7.Text = "X";
             this.button7.UseVisualStyleBackColor = false;
+            this.button7.Click += new System.EventHandler(this.button7_Click);
             // 
             // pictureBox1
             // 
@@ -159,6 +163,7 @@
             this.linkLabel1.TabStop = true;
             this.linkLabel1.Text = "Não tenho uma conta";
             this.linkLabel1.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.linkLabel1.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel1_LinkClicked);
             // 
             // button1
             // 

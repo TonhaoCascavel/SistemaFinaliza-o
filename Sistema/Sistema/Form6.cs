@@ -12,9 +12,22 @@ namespace Sistema
 {
     public partial class Form6 : Form
     {
-        public Form6()
+        private List<Compra> compras;
+        private string usuario;
+        public Form6(List<Compra> historicoCompras, string usuarioLogado)
         {
             InitializeComponent();
+            compras = historicoCompras;
+            usuario = usuarioLogado;
+        }
+        public void CarregarDados(List<Compra> historicoCompras, string usuarioLogado)
+        {
+            compras = historicoCompras;
+            usuario = usuarioLogado;
+        }
+        private void button1_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

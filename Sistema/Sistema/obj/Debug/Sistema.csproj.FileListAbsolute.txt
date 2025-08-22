@@ -37,3 +37,5 @@ C:\Users\anton\Source\Repos\SistemaFinaliza-o\Sistema\Sistema\obj\Debug\Sistema.
 C:\Users\anton\Source\Repos\SistemaFinaliza-o\Sistema\Sistema\obj\Debug\Sistema.csproj.CoreCompileInputs.cache
 C:\Users\anton\Source\Repos\SistemaFinaliza-o\Sistema\Sistema\obj\Debug\Sistema.exe
 C:\Users\anton\Source\Repos\SistemaFinaliza-o\Sistema\Sistema\obj\Debug\Sistema.pdb
+C:\Users\Aluno\Source\Repos\SistemaFinaliza-o\Sistema\Sistema\obj\Debug\Sistema.Form5.resources
+C:\Users\Aluno\Source\Repos\SistemaFinaliza-o\Sistema\Sistema\obj\Debug\Sistema.Form6.resources

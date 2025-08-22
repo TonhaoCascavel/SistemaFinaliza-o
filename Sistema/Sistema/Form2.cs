@@ -39,9 +39,12 @@ namespace Sistema
 
         private void button1_Click(object sender, EventArgs e)
         {
-            Form1 form1 = new Form1();
-            form1.Show();
-            this.Close(); 
+            Form1 form1 = Application.OpenForms.OfType<Form1>().FirstOrDefault();
+            if (form1 != null)
+            {
+                form1.Show();
+                this.Close();
+            }
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -60,9 +63,13 @@ namespace Sistema
 
         private void button3_Click(object sender, EventArgs e)
         {
-            Form5 form5 = new Form5();
+
+            List<Produto> produtosDisponiveis = listaProdutos;
+            string nomeUsuario = usuarioLogado.PrimeiroNome(); 
+
+            Form5 form5 = new Form5(produtosDisponiveis, nomeUsuario);
             form5.Show();
-            this.Close();
+            this.Hide();
         }
 
         private void button5_Click(object sender, EventArgs e)
