@@ -13,6 +13,6 @@ namespace Sistema
         public int QuantidadeComprada { get; set; }
         public DateTime DataCompra { get; set; }
         public decimal Total => PrecoUnitario * QuantidadeComprada;
-        public string UsuarioComprador { get; set; }  
+        public Usuario UsuarioComprador { get; set; }
     }
 }

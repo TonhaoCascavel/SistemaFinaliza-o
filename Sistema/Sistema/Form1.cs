@@ -14,6 +14,7 @@ namespace Sistema
     public partial class Form1 : Form
     {
         public static List<Usuario> listaUsuarios = new List<Usuario>();
+        public static List<Produto> listaProdutos = new List<Produto>();
         public Form1()
         {
             InitializeComponent();
@@ -103,7 +104,7 @@ namespace Sistema
             // ----- (Opcional/recomendado) se usar ListView com imagem, use o código na seção 4 -----
 
             // abrir Form2
-            Form2 form2 = new Form2(usuario);
+            Form2 form2 = new Form2(usuario, listaProdutos);
             form2.Show();
             this.Hide();
         }

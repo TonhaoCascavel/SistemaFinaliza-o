@@ -89,7 +89,7 @@ namespace Sistema
 
         private void button2_Click(object sender, EventArgs e)
         {
-            Form2 form2 = new Form2(UsuarioLogado);
+            Form2 form2 = new Form2(UsuarioLogado, produtos);
             form2.Show();
             this.Close();
         }
@@ -200,6 +200,11 @@ namespace Sistema
         }
 
         private void listView1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void panel2_Paint(object sender, PaintEventArgs e)
         {
 
         }

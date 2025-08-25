@@ -13,12 +13,15 @@ namespace Sistema
     public partial class Form2 : Form
     {
         public static List<Produto> listaProdutos = new List<Produto>();
+        private List<Produto> produtos;
+        private List<Compra> historicoCompras;
 
         private Usuario usuarioLogado;
-        public Form2(Usuario usuario)
+        public Form2(Usuario usuario, List<Produto> listaProdutos)
         {
             InitializeComponent();
             usuarioLogado = usuario;
+            produtos = listaProdutos;
         }
 
         private void Form2_Load(object sender, EventArgs e)
@@ -65,9 +68,9 @@ namespace Sistema
         {
 
             List<Produto> produtosDisponiveis = listaProdutos;
-            string nomeUsuario = usuarioLogado.PrimeiroNome(); 
+            string nomeUsuario = usuarioLogado.PrimeiroNome();
 
-            Form5 form5 = new Form5(produtosDisponiveis, nomeUsuario);
+            Form5 form5 = new Form5(produtos, usuarioLogado.PrimeiroNome(), usuarioLogado);
             form5.Show();
             this.Hide();
         }
@@ -109,6 +112,13 @@ namespace Sistema
         private void panel1_Paint(object sender, PaintEventArgs e)
         {
 
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            Form6 form6 = new Form6(historicoCompras, usuarioLogado, produtos);
+            form6.Show();
+            this.Hide();
         }
     }
 }

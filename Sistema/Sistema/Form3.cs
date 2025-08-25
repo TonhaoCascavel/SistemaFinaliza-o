@@ -38,14 +38,17 @@ namespace Sistema
 
             if (usuario != null)
             {
-                Form2 form2 = new Form2(usuario);
+                List<Produto> listaProdutos = Form2.listaProdutos;
+                Form2 form2 = new Form2(usuario, listaProdutos);
                 form2.Show();
                 this.Hide();
             }
             else
             {
-                MessageBox.Show("E-mail ou senha incorretos.");
+                MessageBox.Show("E-mail ou senha incorretos."); 
             }
+
+
 
         }
 
